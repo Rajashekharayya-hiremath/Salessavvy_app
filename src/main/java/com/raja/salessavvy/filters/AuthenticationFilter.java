@@ -1,6 +1,7 @@
 package com.raja.salessavvy.filters;
 
 import com.raja.salessavvy.entities.Role;
+
 import com.raja.salessavvy.entities.User;
 import com.raja.salessavvy.repositories.*;
 import com.raja.salessavvy.services.*;
@@ -47,8 +48,7 @@ public class AuthenticationFilter implements Filter {
 	"Internal server error");
 	}
 	}
-	private void executeFilterLogic (ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+	private void executeFilterLogic (ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 			HttpServletRequest httpRequest = (HttpServletRequest) request;
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
 			String requestURI = httpRequest.getRequestURI();
@@ -90,14 +90,13 @@ public class AuthenticationFilter implements Filter {
 			}
 			if (requestURI.startsWith("/api/") && role != Role.CUSTOMER) {
 			sendErrorResponse (httpResponse, HttpServletResponse.SC_FORBIDDEN, "Forbidden: Customer access required");
-			}
 			return;
 	        }
 	
 	// Attach user details to request
 	httpRequest.setAttribute("authenticatedUser", authenticatedUser);
 	chain.doFilter(request, response);
-	}
+}
 
 	private void setCORSHeaders (HttpServletResponse response) {
 	response.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
@@ -121,5 +120,6 @@ public class AuthenticationFilter implements Filter {
 	.orElse(null);
 	}
 	return null;
-	}						
+	}	
+
 }

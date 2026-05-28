@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.raja.salessavvy.controllers.JWTToken;
+import com.raja.salessavvy.entities.JWTToken;
 import com.raja.salessavvy.entities.User;
 import com.raja.salessavvy.repositories.JWTTokenRepository;
 import com.raja.salessavvy.repositories. UserRepository;

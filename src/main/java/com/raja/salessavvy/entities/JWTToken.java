@@ -1,8 +1,6 @@
-package com.raja.salessavvy.controllers;
+package com.raja.salessavvy.entities;
 
 import java.time.LocalDateTime;
-
-import com.raja.salessavvy.entities.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
