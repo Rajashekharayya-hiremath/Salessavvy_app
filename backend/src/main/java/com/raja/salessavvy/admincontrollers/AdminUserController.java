@@ -40,16 +40,22 @@ public class AdminUserController {
       }
  }
 
- @GetMapping("/getbyid")
+ @PostMapping("/getbyid")
  public ResponseEntity<?> getUserById(@RequestBody Map<String, Integer> userRequest) {
- 	 try {
-          Integer userId = userRequest.get("userId");
-          User user = adminUserService.getUserById(userId);
-          return ResponseEntity.status(HttpStatus.OK).body(user);
-      } catch (IllegalArgumentException e) {
-          return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-      } catch (Exception e) {
-          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
-      }
-  }
+
+     try {
+         Integer userId = userRequest.get("userId");
+
+         User user = adminUserService.getUserById(userId);
+
+         return ResponseEntity.ok(user);
+
+     } catch (IllegalArgumentException e) {
+         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+
+     } catch (Exception e) {
+         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                 .body("Something went wrong");
+     }
+ }
 }

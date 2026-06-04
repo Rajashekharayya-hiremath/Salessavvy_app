@@ -23,6 +23,7 @@ public class UserService {
             throw new RuntimeException("Email is already registered");
         }
         // Encode password before saving
+       
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         // Save the user
         return userRepository.save(user);

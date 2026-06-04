@@ -47,14 +47,20 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
       }
       case "modifyUser": {
         const formData = new FormData(e.target);
+
         const username = formData.get("username");
         const email = formData.get("email");
-        const role = formData.get("role");
-        const userId = parseInt(inputValue, 10);
-        const data = {
+          const role = formData.get("role");
+
+         const userId = parseInt(inputValue, 10);
+
+         onSubmit({
+          userId,
           username,
-        };
-        onSubmit(userId);
+          email,
+          role,
+          });
+
         break;
       }
       case "monthlyBusiness": {
@@ -173,7 +179,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
               <h2>Product Details</h2>
               <div className="full-products">
                 <div className="product-details img">
-                  <img src={response.product.imageUrl} />
+                  <img src={response?.product?.imageUrl} alt="Product"/>
                 </div>
                 <div className="product-details-info">
                   <div className="product-details">
@@ -319,13 +325,13 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                   <div className="business-response-item">
                     <div>Total Business: ₹ </div>
                     <div>
-                      {response?.dailyBusiness?.totalBusiness?.toFixed(2)}
+                      {response?.monthlyBusiness?.totalBusiness?.toFixed(2)}
                     </div>
                   </div>
                   <div className="business-response-item">
                     <h5>Category Sales</h5>
                   </div>
-                  {Object.keys(response?.monthlyBusiness?.categorySales)?.map(
+                  {Object.keys(response?.monthlyBusiness?.categorySales || {}).map(
                     (key) => {
                       return (
                         <div key={key} className="business-response-item">
@@ -374,7 +380,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                   <div className="business-response-item">
                     <h5>Category Sales</h5>
                   </div>
-                  {Object.keys(response?.dailyBusiness?.categorySales)?.map(
+                  {Object.keys(response?.dailyBusiness?.categorySales || {}).map(
                     (key) => {
                       return (
                         <div key={key} className="business-response-item">
@@ -423,7 +429,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                   <div className="business-response-item">
                     <h5>Category Sales</h5>
                   </div>
-                  {Object.keys(response?.yearlyBusiness?.categorySales)?.map(
+                  {Object.keys(response?.yearlyBusiness?.categorySales || {}).map(
                     (key) => {
                       return (
                         <div key={key} className="business-response-item">
@@ -462,7 +468,7 @@ const CustomModal = ({ modalType, onClose, onSubmit, response }) => {
                   <div className="business-response-item">
                     <h5>Category Sales</h5>
                   </div>
-                  {Object.keys(response?.overallBusiness?.categorySales)?.map(
+                  {Object.keys(response?.overallBusiness?.categorySales || {}).map(
                     (key) => {
                       return (
                         <div key={key} className="business-response-item">
@@ -566,13 +572,13 @@ const ModifyUserFormComponent = ({ onClose }) => {
     return (
       <form onSubmit={handleFetchUser}>
         <div className="modal-form-item">
-          <label for="user-id">User ID:</label>
+          <label htmlFor="user-id">User ID:</label>
           <input
             type="text"
             id="user-id"
             name="user-id"
             value={userId}
-            onChange={(e) => userId(e.target.value)}
+            onChange={(e) => setUserId(e.target.value)}
           />
         </div>
         <button type="submit">Get User</button>
@@ -585,13 +591,13 @@ const ModifyUserFormComponent = ({ onClose }) => {
       <div>
         <form onSubmit={handleUpdateUser} className="modal-form">
           <div className="modal-form-item">
-            <label for="user-id">User ID:</label>
+            <label htmlFor="user-id">User ID:</label>
             <input
               type="text"
               id="user-id"
               name="user-id"
-              value="17"
-              readonly
+              value={userDetails?.userId}
+              readOnly
             />
           </div>
           <div className="modal-form-item">

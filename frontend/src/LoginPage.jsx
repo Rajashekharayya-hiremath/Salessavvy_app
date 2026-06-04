@@ -33,7 +33,7 @@ export default function LoginPage() {
         if (data.role === "CUSTOMER") {
           navigate("/customerhome");
         } else if (data.role === "ADMIN") {
-          navigate("/adminhome");
+          navigate("/admindashboard");
         } else {
           navigate("/"); // Redirect to a default page if role is unknown
         }

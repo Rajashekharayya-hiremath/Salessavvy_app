@@ -53,6 +53,7 @@ public class AdminBusinessService {
 		Map<String, Object> businessReport = new HashMap<>();
 		businessReport.put("totalBusiness", totalBusiness);
 		businessReport.put("categorySales", categorySales);
+		System.out.println(totalBusiness);
 
 		return businessReport;
 	}
