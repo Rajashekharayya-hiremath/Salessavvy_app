@@ -89,20 +89,39 @@ export default function CustomerHomePage() {
       console.error('Error adding product to cart:', error);
     }
   };
+  
+return (
+  <div className="customer-homepage">
+    <Header
+      cartCount={isCartLoading ? '...' : cartError ? 'Error' : cartCount}
+      username={username}
+    />
 
-  return (
-    <div className="customer-homepage">
-      <Header
-        cartCount={isCartLoading ? '...' : cartError ? 'Error' : cartCount}
-        username={username}
+    <section className="hero-section">
+      <div className="hero-content">
+        <h1>Shop Smarter, Sell Better</h1>
+        <p>
+          Discover premium products, unbeatable deals, and seamless shopping.
+        </p>
+      </div>
+    </section>
+
+    <nav className="navigation">
+      <CategoryNavigation onCategoryClick={handleCategoryClick} />
+    </nav>
+
+    <main className="main-content">
+      <div className="products-header">
+        <h2>Featured Products</h2>
+      </div>
+
+      <ProductList
+        products={products}
+        onAddToCart={handleAddToCart}
       />
-      <nav className="navigation">
-        <CategoryNavigation onCategoryClick={handleCategoryClick} />
-      </nav>
-      <main className="main-content">
-        <ProductList products={products} onAddToCart={handleAddToCart} />
-      </main>
-      <Footer />
-    </div>
-  );
+    </main>
+
+    <Footer />
+  </div>
+);
 }

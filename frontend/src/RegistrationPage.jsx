@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './assets/styles.css';
 import { useNavigate } from 'react';
+import logo from './assets/logo.png';
 
 export default function RegistrationPage() {
   const [username, setUsername] = useState('');
@@ -45,7 +46,7 @@ export default function RegistrationPage() {
 
       <div className="auth-left">
         <div className="brand-logo">
-          <div className="logo-circle">s</div>
+          <img src={logo} alt="Sales Savvy Logo" className="login-logo" />
         </div>
 
         <h1 className="brand-title">SalesSavvy</h1>

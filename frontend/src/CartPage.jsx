@@ -3,6 +3,7 @@ import "./CartPage.css";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -173,22 +174,26 @@ const CartPage = () => {
   const shipping = (5.0 * 74).toFixed(2); // Hardcoded shipping value
 
   if (cartItems.length === 0) {
-    return (
+  return (
+    <>
+      <Header cartCount={0} username={username} />
       <div className="cart-page empty">
         <h2>Your Cart is Empty</h2>
         <p>Add some items to get started!</p>
       </div>
-    );
-  }
+      <Footer />
+    </>
+  );
+}
 
   return (
     <div style={{ width: "100vw" }}>
       <Header cartCount={totalProducts()} username={username} />
       <div className="cart-container">
         <div className="cart-page">
-          <a href="#" className="back-button">
-            ← Shopping Continue
-          </a>
+          <Link to="/customerhome" className="back-button">
+             ← Continue Shopping
+            </Link>
 
           <div className="cart-header">
             <h2>Shopping Cart</h2>

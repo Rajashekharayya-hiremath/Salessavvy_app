@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./assets/styles.css";
+import logo from './assets/logo.png';
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -55,7 +56,9 @@ export default function LoginPage() {
 
       <div className="auth-left">
         <div className="brand-logo">
-          <div className="logo-circle">S</div>
+          <div className="logo-container">
+             <img src={logo} alt="Sales Savvy Logo" className="login-logo" />
+          </div>
         </div>
 
         <h1 className="brand-title">SalesSavvy</h1>
