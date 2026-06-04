@@ -38,13 +38,40 @@ export default function RegistrationPage() {
   };
 
   return (
-    <div className="page-container">
-      <div className="form-container">
-        <h1 className="form-title">Register</h1>
+  <div className="auth-page register-page">
+    <div className="auth-overlay"></div>
+
+    <div className="auth-wrapper">
+
+      <div className="auth-left">
+        <div className="brand-logo">
+          <div className="logo-circle">s</div>
+        </div>
+
+        <h1 className="brand-title">SalesSavvy</h1>
+
+        <h2 className="brand-tagline">
+          Start Your Shopping Journey
+        </h2>
+
+        <p className="brand-description">
+          Join thousands of customers and explore amazing products with ease.
+        </p>
+      </div>
+
+      <div className="auth-card">
+
+        <h2 className="auth-title">Create Account</h2>
+
         {error && <p className="error-message">{error}</p>}
+
         <form onSubmit={handleSignUp} className="form-content">
+
           <div className="form-group">
-            <label htmlFor="username" className="form-label">Username</label>
+            <label htmlFor="username" className="form-label">
+              Username
+            </label>
+
             <input
               id="username"
               type="text"
@@ -55,8 +82,12 @@ export default function RegistrationPage() {
               className="form-input"
             />
           </div>
+
           <div className="form-group">
-            <label htmlFor="email" className="form-label">Email</label>
+            <label htmlFor="email" className="form-label">
+              Email
+            </label>
+
             <input
               id="email"
               type="email"
@@ -67,8 +98,12 @@ export default function RegistrationPage() {
               className="form-input"
             />
           </div>
+
           <div className="form-group">
-            <label htmlFor="password" className="form-label">Password</label>
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
+
             <input
               id="password"
               type="password"
@@ -79,8 +114,12 @@ export default function RegistrationPage() {
               className="form-input"
             />
           </div>
+
           <div className="form-group">
-            <label htmlFor="role" className="form-label">Role</label>
+            <label htmlFor="role" className="form-label">
+              Role
+            </label>
+
             <select
               id="role"
               value={role}
@@ -88,17 +127,31 @@ export default function RegistrationPage() {
               required
               className="form-select"
             >
-              <option value="" disabled>Select your role</option>
-              <option value="CUSTOMER">Customer</option>
+              <option value="" disabled>
+                Select your role
+              </option>
+
+              <option value="CUSTOMER">
+                Customer
+              </option>
             </select>
           </div>
-          <button type="submit" className="form-button">Sign Up</button>
+
+          <button type="submit" className="auth-button">
+            Sign Up
+          </button>
+
         </form>
-        <p className="form-footer">
-          Already a user?{' '}
-          <a href="/" className="form-link">Log in here</a>
-        </p>
+
+        <div className="form-footer">
+          <a href="/" className="form-link">
+            Already a user? Log in here
+          </a>
+        </div>
+
       </div>
+
     </div>
-  );
+  </div>
+);
 }

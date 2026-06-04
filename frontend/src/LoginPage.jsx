@@ -48,51 +48,81 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="page-layout">
-      <div className="page-container">
-        <div className="form-container">
-          <h1 className="form-title">Login</h1>
-          {error && <p className="error-message">{error}</p>}
-          <form onSubmit={handleSignIn} className="form-content">
-            <div className="form-group">
-              <label htmlFor="username" className="form-label">
-                Username
-              </label>
-              <input
-                id="username"
-                type="text"
-                placeholder="Enter your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-                className="form-input"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="form-input"
-              />
-            </div>
-            <button type="submit" className="form-button">
-              Sign In
-            </button>
-          </form>
-          <div className="form-footer">
-            <a href="/register" className="form-link">
-              New User? Sign up here
-            </a>
-          </div>
+  <div className="auth-page login-page">
+    <div className="auth-overlay"></div>
+
+    <div className="auth-wrapper">
+
+      <div className="auth-left">
+        <div className="brand-logo">
+          <div className="logo-circle">S</div>
         </div>
+
+        <h1 className="brand-title">SalesSavvy</h1>
+
+        <h2 className="brand-tagline">
+          Shop Smarter. Sell Better.
+        </h2>
+
+        <p className="brand-description">
+          Discover products, manage orders and enjoy a seamless shopping experience.
+        </p>
+      </div>
+
+      <div className="auth-card">
+        <h2 className="auth-title">Welcome Back</h2>
+
+        {error && <p className="error-message">{error}</p>}
+
+        <form onSubmit={handleSignIn} className="form-content">
+
+          <div className="form-group">
+            <label htmlFor="username" className="form-label">
+              Username
+            </label>
+
+            <input
+              id="username"
+              type="text"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              className="form-input"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
+
+            <input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="form-input"
+            />
+          </div>
+
+          <button type="submit" className="auth-button">
+            Sign In
+          </button>
+
+        </form>
+
+        <div className="form-footer">
+          <a href="/register" className="form-link">
+            New User? Sign up here
+          </a>
+        </div>
+
       </div>
     </div>
-  );
+  </div>
+
+);
 }
