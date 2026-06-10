@@ -23,11 +23,15 @@ export default function CustomerHomePage() {
   const fetchProducts = async (category = '') => {
     try {
       const response = await fetch(
-        `http://localhost:9090/api/products${category ? `?category=${category}` : '?category=Shirts'}`, 
-        { credentials: 'include' } // Include authToken as a cookie
+     `http://localhost:9090/api/products${category ? `?category=${category}` : ''}`,
+       { credentials: 'include' }
       );
-      const data = await response.json();
-      console.log("Products API Response:", data);
+
+     const data = await response.json();
+
+      console.log("STATUS =", response.status);
+      console.log("CATEGORY =", category);
+      console.log("DATA =", data);
       if(data)
      { 
       

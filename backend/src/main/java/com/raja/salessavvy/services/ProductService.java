@@ -22,19 +22,30 @@ public class ProductService {
     private CategoryRepository categoryRepository;
 
     public List<Product> getProductsByCategory(String categoryName) {
+
+        System.out.println("SEARCHING CATEGORY = " + categoryName);
+
         if (categoryName != null && !categoryName.isEmpty()) {
-            Optional<Category> categoryOpt = categoryRepository.findByCategoryName(categoryName);
+
+            Optional<Category> categoryOpt =
+                    categoryRepository.findByCategoryNameIgnoreCase(categoryName);
+
+            System.out.println("FOUND CATEGORY = " + categoryOpt.isPresent());
+
             if (categoryOpt.isPresent()) {
                 Category category = categoryOpt.get();
-                return productRepository.findByCategory_CategoryId(category.getCategoryId());
+
+                System.out.println("CATEGORY ID = " + category.getCategoryId());
+
+                return productRepository.findByCategory_CategoryId(
+                        category.getCategoryId());
             } else {
                 throw new RuntimeException("Category not found");
             }
-        } else {
-            return productRepository.findAll();
         }
-    }
 
+        return productRepository.findAll();
+    }
     public List<String> getProductImages(Integer productId) {
         List<ProductImage> productImages = productImageRepository.findByProduct_ProductId(productId);
         List<String> imageUrls = new ArrayList<>();

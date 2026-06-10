@@ -3,6 +3,7 @@ package com.raja.salessavvy.controllers;
 import com.raja.salessavvy.entities.*;
 
 
+
 import com.raja.salessavvy.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class ProductController {
     public ResponseEntity<Map<String, Object>> getProducts(
             @RequestParam(required = false) String category,
             HttpServletRequest request) {
+    	System.out.println("CATEGORY RECEIVED = " + category);
         try {
             // Retrieve authenticated user from the request attribute set by the filter
             User authenticatedUser = (User) request.getAttribute("authenticatedUser");
