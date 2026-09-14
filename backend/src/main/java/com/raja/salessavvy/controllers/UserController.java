@@ -15,7 +15,6 @@ import com.raja.salessavvy.entities.*;
 import com.raja.salessavvy.services.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5174")
 @RequestMapping("/api/users")
 public class UserController {
 
