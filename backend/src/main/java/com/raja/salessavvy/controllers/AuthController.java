@@ -37,12 +37,16 @@ public class AuthController {
             User user = authService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
             String token = authService.generateToken(user);
 
+            
+
             Cookie cookie = new Cookie("authToken", token);
-            cookie.setHttpOnly(true);
-            cookie.setSecure(false); // Set to true if using HTTPS
-            cookie.setPath("/");
-            cookie.setMaxAge(3600); // 1 hour
-            response.addCookie(cookie);
+             cookie.setHttpOnly(true);
+             cookie.setSecure(true);
+             cookie.setPath("/");
+             cookie.setMaxAge(3600);
+             cookie.setAttribute("SameSite", "None");
+
+             response.addCookie(cookie);
            // Optional but useful
             
 
