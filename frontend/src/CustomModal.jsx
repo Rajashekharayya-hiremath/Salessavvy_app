@@ -1,3 +1,4 @@
+import { API_BASE_URL } from './api.js';
 // CustomModal.jsx
 import React, { useEffect, useState } from "react";
 import "./assets/modalStyles.css";
@@ -512,7 +513,7 @@ const ModifyUserFormComponent = ({ onClose }) => {
 
       if (!userid) return;
 
-      const response = await fetch("http://localhost:9090/admin/user/getbyid", {
+      const response = await fetch(`\${API_BASE_URL}/admin/user/getbyid`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -545,7 +546,7 @@ const ModifyUserFormComponent = ({ onClose }) => {
     const email = formData.get("email");
     const role = formData.get("role");
 
-    const response = await fetch("http://localhost:9090/admin/user/modify", {
+    const response = await fetch(`\${API_BASE_URL}/admin/user/modify`, {
       method: "PUT",
       credentials: "include",
       headers: {

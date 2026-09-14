@@ -1,3 +1,4 @@
+import { API_BASE_URL } from './api.js';
 import React, { useEffect, useState } from "react";
 import "./CartPage.css";
 import { Header } from "./Header";
@@ -16,7 +17,7 @@ const CartPage = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await fetch("http://localhost:9090/api/cart/items", {
+        const response = await fetch(`\${API_BASE_URL}/api/cart/items`, {
           credentials: "include", // Include session cookie
         });
         if (!response.ok) throw new Error("Failed to fetch cart items");
@@ -50,7 +51,7 @@ const CartPage = () => {
   // Remove item from the cart
   const handleRemoveItem = async (productId) => {
     try {
-      const response = await fetch("http://localhost:9090/api/cart/delete", {
+      const response = await fetch(`\${API_BASE_URL}/api/cart/delete`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -71,7 +72,7 @@ const CartPage = () => {
         handleRemoveItem(productId);
         return;
       }
-      const response = await fetch("http://localhost:9090/api/cart/update", {
+      const response = await fetch(`\${API_BASE_URL}/api/cart/update`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -108,7 +109,7 @@ const CartPage = () => {
       };
 
       // Create Razorpay order via backend
-      const response = await fetch("http://localhost:9090/api/payment/create", {
+      const response = await fetch(`\${API_BASE_URL}/api/payment/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -129,7 +130,7 @@ const CartPage = () => {
         handler: async function (response) {
           try {
             // Payment success, verify on backend
-            const verifyResponse = await fetch("http://localhost:9090/api/payment/verify", {
+            const verifyResponse = await fetch(`\${API_BASE_URL}/api/payment/verify`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               credentials: "include",
