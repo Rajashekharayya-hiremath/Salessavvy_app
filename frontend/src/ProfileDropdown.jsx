@@ -12,7 +12,7 @@ export function ProfileDropdown({ username }) {
   };
   const handleLogout = async () => {
     try {
-      const response = await fetch(`\${API_BASE_URL}/api/auth/logout`, {
+      const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
         method: 'POST', // Use POST as logout often involves session clearing
         credentials: 'include', // Include credentials like cookies for authentication
       });

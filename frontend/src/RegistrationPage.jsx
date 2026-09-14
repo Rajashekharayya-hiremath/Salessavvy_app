@@ -17,7 +17,7 @@ export default function RegistrationPage() {
     setError(null); // Clear previous errors
 
     try {
-      const response = await fetch(`\${API_BASE_URL}/api/users/register`, {
+      const response = await fetch(`${API_BASE_URL}/api/users/register`, {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
