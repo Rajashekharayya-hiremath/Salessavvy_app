@@ -13,17 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@CrossOrigin(
-	    origins = "http://localhost:5174",
-	    allowCredentials = "true",
-	    methods = {
-	        RequestMethod.GET,
-	        RequestMethod.POST,
-	        RequestMethod.PUT,
-	        RequestMethod.DELETE,
-	        RequestMethod.OPTIONS
-	    }
-	)
+
 	@RestController
 	@RequestMapping("/api/cart")
 	public class CartController {
