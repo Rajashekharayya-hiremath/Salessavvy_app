@@ -10,7 +10,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,6 +18,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,6 +26,9 @@ public class AuthenticationFilter implements Filter {
 
     private final AuthService authService;
     private final UserRepository userRepository;
+
+    @Value("${FRONTEND_URL:http://localhost:5174}")
+    private String frontendUrl;
 
     private static final String[] UNAUTHENTICATED_PATHS = {
             "/api/users/register",
@@ -44,28 +47,48 @@ public class AuthenticationFilter implements Filter {
                          ServletResponse response,
                          FilterChain chain)
             throws IOException, ServletException {
-    	System.out.println("FILTER EXECUTED");
-    	
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        String requestURI = httpRequest.getRequestURI();
+        // Add CORS headers before any authentication logic
+        String origin = httpRequest.getHeader("Origin");
+
+        if (frontendUrl.equals(origin) || "http://localhost:5174".equals(origin)) {
+            httpResponse.setHeader("Access-Control-Allow-Origin", origin);
+            httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
+            httpResponse.setHeader(
+                    "Access-Control-Allow-Methods",
+                    "GET, POST, PUT, DELETE, OPTIONS"
+            );
+            httpResponse.setHeader(
+                    "Access-Control-Allow-Headers",
+                    "Content-Type, Authorization"
+            );
+        }
+
+        // Handle CORS preflight immediately
         if ("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
-            chain.doFilter(request, response);
+            httpResponse.setStatus(HttpServletResponse.SC_OK);
             return;
         }
+
+        System.out.println("FILTER EXECUTED");
+
+        String requestURI = httpRequest.getRequestURI();
 
         System.out.println("\n==============================");
         System.out.println("REQUEST URI = " + requestURI);
         System.out.println("==============================");
 
+        // Public endpoints
         if (Arrays.asList(UNAUTHENTICATED_PATHS).contains(requestURI)) {
             System.out.println("PUBLIC ENDPOINT");
             chain.doFilter(request, response);
             return;
         }
 
+        // Get JWT from cookie
         String token = getAuthTokenFromCookies(httpRequest);
 
         System.out.println("TOKEN = " + token);
@@ -78,6 +101,7 @@ public class AuthenticationFilter implements Filter {
             return;
         }
 
+        // Validate JWT
         boolean valid = authService.validateToken(token);
 
         System.out.println("TOKEN VALID = " + valid);
@@ -102,6 +126,7 @@ public class AuthenticationFilter implements Filter {
             return;
         }
 
+        // Find authenticated user
         Optional<User> userOptional =
                 userRepository.findByUsername(username);
 
@@ -122,6 +147,7 @@ public class AuthenticationFilter implements Filter {
         System.out.println("ROLE = "
                 + authenticatedUser.getRole());
 
+        // Admin authorization
         if (requestURI.startsWith("/admin/")
                 && authenticatedUser.getRole() != Role.ADMIN) {
 
@@ -131,6 +157,7 @@ public class AuthenticationFilter implements Filter {
             return;
         }
 
+        // Attach authenticated user to request
         httpRequest.setAttribute(
                 "authenticatedUser",
                 authenticatedUser
