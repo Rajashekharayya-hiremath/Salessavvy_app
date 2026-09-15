@@ -13,12 +13,18 @@ export function ProfileDropdown({ username }) {
   const handleLogout = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
-        method: 'POST', // Use POST as logout often involves session clearing
-        credentials: 'include', // Include credentials like cookies for authentication
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
       });
 
       if (response.ok) {
         console.log('User successfully logged out');
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("role");
         navigate('/'); // Redirect to login page
       } else {
         console.error('Failed to log out');

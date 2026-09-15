@@ -70,9 +70,15 @@ const AdminDashboard = () => {
       const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       if (response.ok) {
         console.log("User successfully logged out");
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("role");
         navigate("/admin");
       } else {
         console.error("Failed to log out");
@@ -90,6 +96,7 @@ const AdminDashboard = () => {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(productData),
       });
@@ -110,6 +117,7 @@ const AdminDashboard = () => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify({ productId }),
         }
@@ -134,6 +142,7 @@ const AdminDashboard = () => {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({ userId }), // Send userId in request body
       });
@@ -165,6 +174,7 @@ const AdminDashboard = () => {
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
             body: JSON.stringify({ userId: data.userId }), // Ensure userId is correctly passed
           }
@@ -194,6 +204,7 @@ const AdminDashboard = () => {
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
             body: JSON.stringify(data), // Ensure the full payload is sent
           }
@@ -224,6 +235,7 @@ const AdminDashboard = () => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -252,6 +264,7 @@ const AdminDashboard = () => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -280,6 +293,7 @@ const AdminDashboard = () => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -308,6 +322,7 @@ const AdminDashboard = () => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );

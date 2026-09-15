@@ -10,7 +10,9 @@ export default function OrdersPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cartCount, setCartCount] = useState(0);
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(
+    localStorage.getItem("username") || ''
+  );
   const [cartError, setCartError] = useState(false); // State for cart fetch error
   const [isCartLoading, setIsCartLoading] = useState(true); // State for cart loading
 
@@ -25,11 +27,17 @@ export default function OrdersPage() {
     try {
       const response = await fetch(`${API_BASE_URL}/api/orders`, {
         credentials: 'include',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       if (!response.ok) throw new Error('Failed to fetch orders');
       const data = await response.json();
       setOrders(data.products || []);
-      setUsername(data.username || 'Guest'); // Extract username
+      if (data.username) {
+        setUsername(data.username);
+        localStorage.setItem("username", data.username);
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -42,6 +50,9 @@ export default function OrdersPage() {
     try {
       const response = await fetch(`${API_BASE_URL}/api/cart/items/count?username=${username}`, {
         credentials: 'include',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       const count = await response.json();
       setCartCount(count);

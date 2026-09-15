@@ -31,6 +31,10 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("username", data.username || username);
+        localStorage.setItem("role", data.role);
+
         if (data.role === "CUSTOMER") {
           navigate("/customerhome");
         } else if (data.role === "ADMIN") {

@@ -61,7 +61,10 @@ export default function CustomerHomePage() {
     setIsCartLoading(true); // Set loading state
     try {
       const response = await fetch(`${API_BASE_URL}/api/cart/items/count?username=${username}`, {
-        credentials: 'include', // Include authToken as a cookie
+        credentials: 'include',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       const count = await response.json();
       setCartCount(Number(count) || 0);
@@ -87,9 +90,11 @@ export default function CustomerHomePage() {
       const response = await fetch(`${API_BASE_URL}/api/cart/add`, {
         credentials: 'include',
         method: 'POST',
-        body: JSON.stringify({ username, productId }), // Include username and productId in the request
-        headers: { 'Content-Type': 'application/json' },
-        // Include authToken as a cookie
+        body: JSON.stringify({ username, productId }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
       });
 
       if (response.ok) {

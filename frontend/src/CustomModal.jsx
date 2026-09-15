@@ -518,6 +518,7 @@ const ModifyUserFormComponent = ({ onClose }) => {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({ userId: userid }), // Ensure userId is correctly passed
       });
@@ -551,6 +552,7 @@ const ModifyUserFormComponent = ({ onClose }) => {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({
         userId: +userId,
