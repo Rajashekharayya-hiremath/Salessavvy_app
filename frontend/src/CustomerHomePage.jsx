@@ -9,7 +9,9 @@ import './assets/styles.css';
 export default function CustomerHomePage() {
   const [products, setProducts] = useState([]);
   const [cartCount, setCartCount] = useState(0);
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(
+  localStorage.getItem("username") || ''
+   ); 
   const [cartError, setCartError] = useState(false); // State for cart fetch error
   const [isCartLoading, setIsCartLoading] = useState(true); // State for cart loading
 
