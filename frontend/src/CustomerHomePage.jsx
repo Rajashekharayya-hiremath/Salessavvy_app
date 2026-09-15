@@ -26,9 +26,14 @@ export default function CustomerHomePage() {
   const fetchProducts = async (category = '') => {
     try {
       const response = await fetch(
-     `${API_BASE_URL}/api/products${category ? `?category=${category}` : ''}`,
-       { credentials: 'include' }
-      );
+    `${API_BASE_URL}/api/products${category ? `?category=${category}` : ''}`,
+    {
+        credentials: 'include',
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+    }
+);
 
      const data = await response.json();
 

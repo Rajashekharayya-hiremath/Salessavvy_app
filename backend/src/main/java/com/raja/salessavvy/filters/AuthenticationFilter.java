@@ -89,8 +89,7 @@ public class AuthenticationFilter implements Filter {
         }
 
         // Get JWT from cookie
-        String token = getAuthTokenFromCookies(httpRequest);
-
+        String token = getAuthToken(httpRequest);
         System.out.println("TOKEN = " + token);
 
         if (token == null) {
@@ -168,6 +167,21 @@ public class AuthenticationFilter implements Filter {
         chain.doFilter(request, response);
     }
 
+    private String getAuthToken(HttpServletRequest request) {
+
+        // First try Authorization header
+        String authorizationHeader = request.getHeader("Authorization");
+
+        if (authorizationHeader != null &&
+                authorizationHeader.startsWith("Bearer ")) {
+
+            return authorizationHeader.substring(7);
+        }
+
+        // Fallback to cookie
+        return getAuthTokenFromCookies(request);
+    }
+    
     private String getAuthTokenFromCookies(
             HttpServletRequest request) {
 

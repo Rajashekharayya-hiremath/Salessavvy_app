@@ -33,17 +33,19 @@ export default function LoginPage() {
       console.log("Login Response:", data);
 
       if (response.ok) {
-        localStorage.setItem("username", data.username);
-        localStorage.setItem("role", data.role);
-        
-        if (data.role === "CUSTOMER") {
-          navigate("/customerhome");
-        } else if (data.role === "ADMIN") {
-          navigate("/admindashboard");
-        } else {
-          navigate("/"); // Redirect to a default page if role is unknown
-        }
-      } else {
+
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("username", data.username);
+    localStorage.setItem("role", data.role);
+
+    if (data.role === "CUSTOMER") {
+        navigate("/customerhome");
+    } else if (data.role === "ADMIN") {
+        navigate("/admindashboard");
+    } else {
+        navigate("/");
+    }
+} else {
         const errorMessage =
           data.error || "Something went wrong. Please try again.";
         throw new Error(errorMessage);

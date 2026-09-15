@@ -50,14 +50,14 @@ public class AuthController {
            // Optional but useful
             
              
+             Map<String, Object> responseBody = new HashMap<>();
 
-            
-            Map<String, Object> responseBody = new HashMap<>();
-            responseBody.put("message", "Login successful");
-            responseBody.put("role", user.getRole().name());
-            responseBody.put("username", user.getUsername());
+             responseBody.put("message", "Login successful");
+             responseBody.put("role", user.getRole().name());
+             responseBody.put("username", user.getUsername());
+             responseBody.put("token", token);
 
-            return ResponseEntity.ok(responseBody);
+             return ResponseEntity.ok(responseBody);
             
         } 
         catch (RuntimeException e) 
